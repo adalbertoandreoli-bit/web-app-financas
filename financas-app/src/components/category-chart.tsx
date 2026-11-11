@@ -31,6 +31,8 @@ export function CategoryChart({ data }: { data: CategorySlice[] }) {
               ))}
             </Pie>
             <Tooltip
+              contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
+              itemStyle={{ color: "var(--foreground)" }}
               formatter={(value: number, name: string) => [
                 `${formatBRL(value)} (${((value / total) * 100).toFixed(1)}%)`,
                 name,

@@ -128,7 +128,7 @@ Cada categoria tem nome, tipo e cor (usada nos gráficos e badges). Ao seleciona
 
 | Área | Requisito |
 |------|-----------|
-| Segurança | RLS ativo em todas as tabelas; chave `service_role` nunca exposta ao cliente; somente `anon key` no front; variáveis em `.env.local` e no painel da Vercel |
+| Segurança | RLS ativo em todas as tabelas; chave `service_role` nunca exposta ao cliente; somente a chave publishable (pública por design) no front; variáveis em `.env.local` e no painel da Vercel |
 | Desempenho | LCP < 2,5 s em 4G; consultas paginadas/limitadas; índices em `(user_id, date)` |
 | Acessibilidade | Contraste WCAG AA; navegação por teclado; labels em todos os campos; componentes shadcn/Radix |
 | Compatibilidade | Últimas 2 versões de Chrome, Edge, Firefox e Safari; iOS Safari e Android Chrome |

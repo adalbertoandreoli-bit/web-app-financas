@@ -64,7 +64,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
     <main className="flex min-h-screen items-center justify-center px-4 py-10">
       <div className="w-full max-w-sm space-y-6">
         <Link href="/" className="flex items-center justify-center gap-2 text-lg font-semibold">
-          <Wallet className="h-6 w-6 text-primary" /> Finanças Pessoais
+          <Wallet className="h-6 w-6 text-primary" /> Gestor Financeiro Pessoal
         </Link>
         <Card>
           <CardContent className="space-y-5 p-6">

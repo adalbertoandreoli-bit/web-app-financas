@@ -4,7 +4,7 @@ import type { Category, Transaction } from "@/types";
 import { TransactionFilters } from "@/components/transaction-filters";
 import { TransactionsView } from "@/components/transactions-view";
 
-export const metadata = { title: "Transações — Finanças Pessoais" };
+export const metadata = { title: "Transações — Gestor Financeiro Pessoal" };
 
 export default async function TransactionsPage({
   searchParams,

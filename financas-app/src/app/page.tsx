@@ -27,7 +27,7 @@ export default async function LandingPage() {
     <div className="min-h-screen">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
         <span className="flex items-center gap-2 font-semibold">
-          <Wallet className="h-6 w-6 text-primary" /> Finanças Pessoais
+          <Wallet className="h-6 w-6 text-primary" /> Gestor Financeiro Pessoal
         </span>
         <nav className="flex items-center gap-2">
           {loggedIn ? (
@@ -84,7 +84,7 @@ export default async function LandingPage() {
       </main>
 
       <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} Finanças Pessoais
+        © {new Date().getFullYear()} Gestor Financeiro Pessoal
       </footer>
     </div>
   );

@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CategoryChart, type CategorySlice } from "@/components/category-chart";
 import { MonthPicker } from "@/components/month-picker";
+import { ThemeToggle } from "@/components/theme-toggle";
 
-export const metadata = { title: "Dashboard — Finanças Pessoais" };
+export const metadata = { title: "Dashboard — Gestor Financeiro Pessoal" };
 
 export default async function DashboardPage({
   searchParams,
@@ -35,18 +36,22 @@ export default async function DashboardPage({
   const expense = transactions.filter((t) => t.type === "expense").reduce((s, t) => s + t.amount, 0);
   const balance = income - expense;
 
-  const byCategory = new Map<string, CategorySlice>();
-  for (const t of transactions) {
-    if (t.type !== "expense") continue;
-    const name = t.categories?.name ?? "Outros";
-    const prev = byCategory.get(name);
-    byCategory.set(name, {
-      name,
-      color: t.categories?.color ?? "#64748b",
-      value: (prev?.value ?? 0) + t.amount,
-    });
-  }
-  const slices = [...byCategory.values()].sort((a, b) => b.value - a.value);
+  const sliceBy = (type: "income" | "expense") => {
+    const map = new Map<string, CategorySlice>();
+    for (const t of transactions) {
+      if (t.type !== type) continue;
+      const name = t.categories?.name ?? "Outros";
+      const prev = map.get(name);
+      map.set(name, {
+        name,
+        color: t.categories?.color ?? "#64748b",
+        value: (prev?.value ?? 0) + t.amount,
+      });
+    }
+    return [...map.values()].sort((a, b) => b.value - a.value);
+  };
+  const expenseSlices = sliceBy("expense");
+  const incomeSlices = sliceBy("income");
   const recent = transactions.slice(0, 5);
 
   const cards = [
@@ -59,7 +64,10 @@ export default async function DashboardPage({
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <MonthPicker value={ym} />
+        <div className="flex items-center gap-2">
+          <MonthPicker value={ym} />
+          <ThemeToggle />
+        </div>
       </div>
 
       {error && (
@@ -100,17 +108,28 @@ export default async function DashboardPage({
               <CardTitle>Despesas por categoria</CardTitle>
             </CardHeader>
             <CardContent>
-              {slices.length ? (
-                <CategoryChart data={slices} />
+              {expenseSlices.length ? (
+                <CategoryChart data={expenseSlices} />
               ) : (
-                <p className="py-8 text-center text-sm text-muted-foreground">
-                  Sem despesas neste mês.
-                </p>
+                <p className="py-8 text-center text-sm text-muted-foreground">Sem despesas neste mês.</p>
               )}
             </CardContent>
           </Card>
 
           <Card>
+            <CardHeader>
+              <CardTitle>Receitas por categoria</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {incomeSlices.length ? (
+                <CategoryChart data={incomeSlices} />
+              ) : (
+                <p className="py-8 text-center text-sm text-muted-foreground">Sem receitas neste mês.</p>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="lg:col-span-2">
             <CardHeader className="flex-row items-center justify-between space-y-0">
               <CardTitle>Últimas transações</CardTitle>
               <Link href={`/transacoes?month=${ym}`} className="text-sm font-medium text-primary hover:underline">
