@@ -23,3 +23,11 @@ export const credentialsSchema = z.object({
 });
 
 export type Credentials = z.infer<typeof credentialsSchema>;
+
+export const categorySchema = z.object({
+  name: z.string().trim().min(1, "Informe o nome").max(40, "Máximo de 40 caracteres"),
+  type: z.enum(["income", "expense"]),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Cor inválida"),
+});
+
+export type CategoryInput = z.infer<typeof categorySchema>;

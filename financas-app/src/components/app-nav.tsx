@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, LogOut, Receipt, Wallet } from "lucide-react";
+import { LayoutDashboard, LogOut, Receipt, Tags, Wallet } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/transacoes", label: "Transações", icon: Receipt },
+  { href: "/categorias", label: "Categorias", icon: Tags },
 ];
 
 export function AppNav({ email }: { email: string }) {
